@@ -43,7 +43,7 @@ class _AllDepensesState extends State<AllDepenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("All Depnses."),elevation: 0),
+      appBar: AppBar(title: Text("All Depnses"),elevation: 0),
       body:
       loading ? Loading() :
       (allTransations != null && allTransations!.isNotEmpty) ?

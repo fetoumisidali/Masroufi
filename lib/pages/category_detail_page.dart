@@ -4,6 +4,7 @@ import '../db/transactions_database.dart';
 import '../model/transaction.dart';
 import '../widgets/Loading.dart';
 import '../widgets/transaction_list.dart';
+
 class CategoryDetailPage extends StatefulWidget {
   CategoryDetailPage(this.category,this.color);
   final String category;
@@ -50,6 +51,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: widget.color,
         title: Text(widget.category)),
       body: loading ? Loading() :
