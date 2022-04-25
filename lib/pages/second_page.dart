@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masroufi/pages/stats_page.dart';
 import 'all_depenses.dart';
 import 'categories.dart';
 
@@ -13,12 +14,13 @@ class _SecondPageState extends State<SecondPage> {
   int currentIndex = 0;
   final screens = [
     AllDepenses(),
-    Categories()
+    Categories(),
+    StatsPage()
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[currentIndex],
+        body: screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
@@ -29,9 +31,13 @@ class _SecondPageState extends State<SecondPage> {
               label: "Depenses",
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart),
+                icon: Icon(Icons.list),
                 label: "Categories"
             ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.bar_chart),
+                label: "stats"
+            )
           ],
         )
     );
