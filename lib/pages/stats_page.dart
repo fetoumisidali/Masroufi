@@ -45,11 +45,18 @@ class _StatsPageState extends State<StatsPage> {
   @override
   Widget build(BuildContext context) {
     final spending = <String,double>{};
-    transactions?.forEach((item) => spending.update(
-            item.category,
-            (value) => value + item.price,
-            ifAbsent: () => item.price)
+    transactions?.forEach((item) =>
+    {
+      spending.update(
+          item.category,
+              (value) => value + item.price,
+          ifAbsent: () => item.price),
+    }
     );
+    int spendingCount(String category){
+      return transactions!.where((element) => element.category == category).length;
+    }
+
     return Scaffold(
       appBar: AppBar(
           title: Text("Stats Page"),
@@ -72,9 +79,11 @@ class _StatsPageState extends State<StatsPage> {
                           sections: spending.map((category, amount) => MapEntry(
                               category, PieChartSectionData(
                             color: getCategoryColor(category),
-                            titleStyle: TextStyle(color: Colors.black87,fontWeight: FontWeight.bold),
-                            radius: 100.0,
-                            title: "${amount}",
+                            titleStyle: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold,
+                                backgroundColor:Colors.white ),
+                            radius: 80.0,
                             value: amount,
                           ))).values.toList(),
                           sectionsSpace: 0
@@ -88,7 +97,7 @@ class _StatsPageState extends State<StatsPage> {
                       children: spending.keys
                           .map((category) => _Indicator(
                         color: getCategoryColor(category),
-                        text: category,
+                        text: "${category} (${spendingCount(category)})",
                       )).toList(),
                     ),
                   ],
