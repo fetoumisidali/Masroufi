@@ -67,8 +67,9 @@ class _NewTransactionState extends State<NewTransaction> {
         padding: EdgeInsets.all(10),
         child:
         Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text("category:"),
             DropdownButton<String>(
               isExpanded: true,
                 value: category,

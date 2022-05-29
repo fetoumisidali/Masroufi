@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:masroufi/model/transaction.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +8,7 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   TransactionList(this.transactions,this.delete);
   Function delete;
+
 
 
   Color getCategoryColor(String category) {
@@ -26,8 +28,29 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Future openDialog() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Delete"),
+          content:const Text("Delete Transaction ?"),
+          actions: [
+            TextButton(
+                onPressed:() {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("CANCEL")),
+            TextButton(
+                onPressed:(){
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text("YES"))
+          ],
+        ));
+
+
     return Container(
-      height: 300,
+      height: 400,
       child: ListView.builder(
         itemBuilder: (context,index)  {
           return Card(
@@ -56,7 +79,10 @@ class TransactionList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () => delete(transactions[index].id),
+                        onPressed: () async{
+                          final del = await openDialog();
+                          if(del == true) delete(transactions[index].id);
+                        },
                         style: ButtonStyle(backgroundColor: MaterialStateProperty
                             .all(Colors.red)),
                         label: Text("Delete"),
@@ -72,7 +98,12 @@ class TransactionList extends StatelessWidget {
         },
         itemCount: transactions.length,
       ),
+
     );
+
   }
 
+
 }
+
+
